@@ -1,2 +1,4 @@
 # Dependencies (Libraries)
 node_modules/
+
+.env
