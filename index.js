@@ -4,6 +4,9 @@ import bodyParser from "body-parser";
 import userRouter from "./routers/userRouter.js";
 import jwt from "jsonwebtoken";
 import productRouter from "./routers/productRouter.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
@@ -12,7 +15,7 @@ app.use(
         const value=req.header("Authorization");
         if(value != null){
              const token=value.replace("Bearer ","");
-             jwt.verify(token,"cbc-6503",
+             jwt.verify(token,process.env.JWT_SECRET,
                 (err,decode)=>{
                     if(decode==null){
                         res.status(403).json({
@@ -31,7 +34,7 @@ app.use(
 )
 
 
-const connecetionString="mongodb+srv://pasindusanjaya24_db_user:psb123@cluster0.y1k077q.mongodb.net/?appName=Cluster0"
+const connecetionString=process.env.MONGO_URI;
 mongoose.connect(connecetionString).then(
     ()=>{
         console.log("database connected !")

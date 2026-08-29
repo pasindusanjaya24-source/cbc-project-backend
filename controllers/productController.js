@@ -21,6 +21,6 @@ export async function createProduct(req,res){
             message:"failed to connect to database!"
         })
 
-    }
+    } 
 
 }
