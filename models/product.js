@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const productScema= new mongoose.Schema(
+const productSchema= new mongoose.Schema(
     {
         productId:{
             type : String,
@@ -48,5 +48,5 @@ const productScema= new mongoose.Schema(
     }
 )
 
-const Product=mongoose.model("products",productScema);
+const Product=mongoose.model("products",productSchema);
 export default Product;
