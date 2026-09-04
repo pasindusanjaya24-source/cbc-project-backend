@@ -24,3 +24,44 @@ export async function createProduct(req,res){
     } 
 
 }
+
+export async function getProducts(req,res){
+    try{
+        if(isAdmin(req)){
+            const products=await Product.find();
+            res.json(products);
+            return;
+        }else{
+            const products=await Product.find({isAvailable:true});
+            res.json(products);
+            return;
+
+        }
+            
+
+    }catch(error){
+        console.error("error fetching products",error);
+        res.status(500).json({message:"failed to fetch products!"});
+        return;
+    }
+}
+
+export async function deleteProducts(req,res) {
+    if(!isAdmin(req)){
+        res.status(403).json({message:"Access denied!.admin only"});
+        return;
+    }
+    try{
+        const productId= req.params.productId;
+        await Product.deleteOne({
+            productId:productId
+        })
+        res.json({message:"product deleted succesfull!"});
+    }catch(error){
+        console.error("error delete products",error);
+        res.status(500).json({message:"failed to delete product"});
+        return;
+
+    }
+    
+}
