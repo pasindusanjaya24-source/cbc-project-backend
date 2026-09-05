@@ -65,3 +65,25 @@ export async function deleteProducts(req,res) {
     }
     
 }
+export async function updateProduct(req,res){
+    if(!isAdmin(req)){
+        res.status(403).json({message:"Access denied!.Admin only"});
+        return;
+    }
+    const data =req.body;
+    const productId=req.params.productId;
+    data.productId=productId;
+    try{
+        await Product.updateOne(
+            {
+            productId:productId,
+        }, data
+    );
+    res.json({message:"product updated succesfully!"});
+
+    }catch(error){
+        console.error("error delete products",error);
+        res.status(500).json({message:"failed update product"});
+        return;
+    }
+}
