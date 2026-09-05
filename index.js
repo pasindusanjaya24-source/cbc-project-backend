@@ -47,33 +47,6 @@ mongoose.connect(connecetionString).then(
 app.use("/users",userRouter)
 app.use("/products",productRouter)
 
-app.delete("/",
-    (req,res)=>{
-        console.log(req.body)
-        res.json(
-            {
-                message:"this is response for delete"
-            }
-
-        )
-        console.log("this is delete request")
-    }
-
-)
-
-app.put("/",
-    (req,res)=>{
-        console.log(req.body)
-        res.json(
-            {
-                message:"this response for put equest"
-            }
-        )
-        console.log("thiss is a put request")
-    }
-
-)
-
 app.listen(5000,()=>{
     console.log("server is started!")
 })
