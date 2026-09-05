@@ -87,3 +87,29 @@ export async function updateProduct(req,res){
         return;
     }
 }
+
+export async function getProductInfo(req,res){
+    try{
+        const productId=req.params.productId;
+        const product=await Product.findOne({productId:productId});
+        if(product==null){
+            res.status(404).json({message:"produuct not found!"});
+            return;
+        }
+        if(isAdmin(req)){
+            res.json(product);
+        }else{
+            if(product.isAvailable){
+                res.json(product);
+
+            }else{
+                res.status(404).json({message:"Access denied!.product is not available!"});
+            }
+        }
+
+    }catch(error){
+        console.error("error fetching product info",error);
+        res.status(500).json({message:"failed to fetch product info!"});
+    }
+}
+
