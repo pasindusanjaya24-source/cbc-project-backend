@@ -1,8 +1,6 @@
 import User from "../models/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { isObjectIdOrHexString } from "mongoose";
-
 export function createUser(req,res){
     const passwordHash = bcrypt.hashSync(req.body.password,10);
     const userData={
@@ -56,7 +54,7 @@ export function loginUser(req,res){
                             isEmailVerfied:user.isEmailVerfied,
                             image:user.image
                         },
-                        "cbc-6503"
+                        process.env.JWT_SECRET
                     )
 
                     res.json({
