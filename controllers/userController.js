@@ -15,13 +15,13 @@ export function createUser(req,res){
     user.save().then(
         ()=>{
             res.json({
-                message:"User crateed succesfully!"
+                message:"User created succesfully!"
             })
         }
     ).catch(
         ()=>{
-            res.json({
-                message:"failed to creat user!"
+            res.status(500).json({
+                message:"failed to create user!"
             })
         }
     )
@@ -68,6 +68,10 @@ export function loginUser(req,res){
            
                 }
             }
+        }
+    ).catch(
+        (err)=>{
+            res.status(500).json({message:"internal server error!"})
         }
     )
 
